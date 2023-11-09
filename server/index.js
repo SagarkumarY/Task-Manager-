@@ -1,8 +1,9 @@
 const express = require('express')
+require('dotenv').config(); // Load environment variables from .env file
 const cors = require('cors'); // Import the 'cors' package
 const connectToMongo = require('../server/db/dataBase')
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000; // Use the PORT from .env or default to 5000
 connectToMongo()
 
 // middleware for req.body
