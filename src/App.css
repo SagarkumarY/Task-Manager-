@@ -177,3 +177,23 @@ a {
   margin: auto;
   padding: 10px 0;
 }
+
+.message_alert{
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+@media screen and (max-width: 435px) {
+ #btn_addBtn
+  {
+    font-size: 17px;
+    padding: 7px 10px 7px 10px;
+    text-decoration: none;
+    margin: 0 3px;
+  
+  
+ }
+
+}
