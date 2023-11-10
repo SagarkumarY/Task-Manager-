@@ -26,7 +26,7 @@ router.post('/createuser',  [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     };
-
+   const success =  false;
 
 
 
@@ -37,7 +37,7 @@ router.post('/createuser',  [
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             // if user exitsts throw error
-            return res.status(400).json({ error: "sorry a user with this email already exists " })
+            return res.status(400).json({ success, error: "sorry a user with this email already exists " })
         }
 
 
@@ -60,7 +60,7 @@ router.post('/createuser',  [
         };
 
         const authToken = jwt.sign(data, JWT_SECRET)
-
+         
         res.json({ authToken })
     } catch (error) {
         console.log(error.message);
@@ -77,6 +77,7 @@ router.post('/login', [
     body('email', 'Enter vaild email').isEmail(),
     body('password', 'Enter valid password').exists(),
 ], async (req, res) => {
+    let success = false;
     // if there are errores, return bad request  and the errors
     // Check for validation errors
     const errors = validationResult(req);
@@ -91,13 +92,15 @@ router.post('/login', [
     try {
         let user = await User.findOne({ email })
         if (!user) {
+            success = false;
             return res.status(400).json({ error: "Please try to login with correct credentials" });
         };
 
 
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) {
-            return res.status(400).json({ error: "Please try to login with correct credentials" });
+            success =false;
+            return res.status(400).json({success, error: "Please try to login with correct credentials" });
         };
 
         const data = {
@@ -108,8 +111,8 @@ router.post('/login', [
 
 
         const authToken = jwt.sign(data, JWT_SECRET);
-
-        res.json({ authToken });
+           success = true
+        res.json({ success, authToken });
 
     } catch (error) {
         console.log(error.message);
