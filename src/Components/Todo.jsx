@@ -19,6 +19,9 @@ function Todo() {
     event.preventDefault();
     addTask(task);
 
+    // Clear the input field
+  document.querySelector('input[name="task"]').value = "";
+
     // Reset the task input fihandleEditTask eld after adding the task
     setTask("");
   };
@@ -42,11 +45,10 @@ function Todo() {
   };
 
   const handleEditTask = () => {
-   
     // editTask(editedTaskText.id, editedTaskText.etask)
-   
-     // Update the task with the editedTaskText
-     editTask(editedTaskText.id, { task: editedTaskText.etask });
+
+    // Update the task with the editedTaskText
+    editTask(editedTaskText.id, { task: editedTaskText.etask });
     // Close the modal
     ref.current.click();
   };
@@ -122,21 +124,33 @@ function Todo() {
       {/* ////////////////////////  modal end*/}
       <div className="container containers">
         <h1>Todo List</h1>
+       
         <div className="form_container">
+        {task.length > 0 && task.length < 5 && (
+              <p className="error-message message_alert text-white mt-2">
+                Task must be at least 5 characters long.
+              </p>
+            )}
           <form>
+         
             <input
               type="text"
               name="task"
               placeholder="Add a new task"
               onChange={onChange}
+              minLength={5}
               required
             />
-            <button type="submit" id="btn" onClick={handleClick}>
+           
+            <button type="submit" id="btn_addBtn" onClick={handleClick}>
               Add Task
             </button>
+           
           </form>
+        
         </div>
         <ul>
+          {tasks.length === 0 ? <h1>No Tasks to display!</h1> : null}
           {tasks.map((item, index) => (
             <li key={index}>
               {item.task}{" "}
