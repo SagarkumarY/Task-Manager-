@@ -8,11 +8,13 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import About from "./Components/About";
 import TaskState from "./Components/context/Taskstate";
+import { AuthState } from "./Components/context/Authentication/AuthState";
+
 
 function App() {
   return (
     <>
-     
+     <AuthState>
       <TaskState>
         <BrowserRouter>
           <Navbar />
@@ -25,6 +27,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </TaskState>
+      </AuthState>
      
     </>
   );
