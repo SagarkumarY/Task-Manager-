@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TaskContext from "./TaskContext";
+import config from "../config/Config";
 
 const TaskState = ({ children }) => {
   const intialTasks = [];
@@ -8,15 +9,10 @@ const TaskState = ({ children }) => {
   // Fetch all tasks
   const fetchAllTasks = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/tasks/fetchalltasks",
+      const response = await fetch(`${config.apiUrl}/fetchalltasks`,
         {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0NzU2MjMwMzUxNTJkY2FlYjk0YzJmIn0sImlhdCI6MTY5OTE3MzkyM30.a6VGAJQi9cjw3mBjXsTg7MJVw4n8aGSd_H_xGfZV-aE", // Replace with your actual auth token
-          },
+          headers: config.authHeader,
         }
       );
 
@@ -36,14 +32,10 @@ const TaskState = ({ children }) => {
   // Add a Task
   const addTask = async (task) => {
     try {
-      const response = await fetch("http://localhost:5000/api/tasks/addtask", {
+        const response = await fetch(`${config.apiUrl}/addtask`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0NzU2MjMwMzUxNTJkY2FlYjk0YzJmIn0sImlhdCI6MTY5OTE3MzkyM30.a6VGAJQi9cjw3mBjXsTg7MJVw4n8aGSd_H_xGfZV-aE", // Replace with your actual auth token
-        },
-        body: JSON.stringify({ task }),
+        headers: { ...config.authHeader },
+        body: JSON.stringify({ task })
       });
 
       if (!response.ok) {
@@ -63,14 +55,10 @@ const TaskState = ({ children }) => {
   const deleteTask = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/deletetask/${id}`,
+        `${config.apiUrl}/deletetask/${id}`, 
         {
           method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0NzU2MjMwMzUxNTJkY2FlYjk0YzJmIn0sImlhdCI6MTY5OTE3MzkyM30.a6VGAJQi9cjw3mBjXsTg7MJVw4n8aGSd_H_xGfZV-aE", // Replace with your actual auth token
-          },
+          headers: config.authHeader
         }
       );
 
@@ -90,14 +78,10 @@ const TaskState = ({ children }) => {
   const editTask = async (taskId, updatedData) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/updatetask/${taskId}`,
+        `${config.apiUrl}/updatetask/${taskId}`, 
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0NzU2MjMwMzUxNTJkY2FlYjk0YzJmIn0sImlhdCI6MTY5OTE3MzkyM30.a6VGAJQi9cjw3mBjXsTg7MJVw4n8aGSd_H_xGfZV-aE", // Replace with your actual auth token
-          },
+          headers: config.authHeader,
           body: JSON.stringify(updatedData),
         }
       );
