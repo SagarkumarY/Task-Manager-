@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TaskContext from "./TaskContext";
-import config from "../config/Config";
+import config from "../../config/Config";
 
 const TaskState = ({ children }) => {
   const intialTasks = [];
