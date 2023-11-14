@@ -1,14 +1,21 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./context/Authentication/AuthContext";
+import  {useAlert} from "./context/AlertContext"
 function Login() {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const { login } = authContext;
+  const { showAlert } = useAlert(); // Add this line
   const [credentials, setCredentails] = useState({ email: "", password: "" });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    login(credentials, navigate);
+    try {
+      login(credentials, navigate);
+      showAlert("Login successfully", "success")
+    } catch (error) {
+      showAlert("Login failed. Please try again.", "danger");
+    }
   };
   const onChange = (e) => {
     setCredentails({ ...credentials, [e.target.name]: e.target.value });

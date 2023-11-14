@@ -7,29 +7,53 @@ import Navbar from "./Components/Navbar";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import About from "./Components/About";
-// import TaskState from "./Components/context/Taskstate";
+
 import TaskState from "./Components/context/Tasks/Taskstate";
 import { AuthState } from "./Components/context/Authentication/AuthState";
+import Alert from "./Components/Alert";
+// import { useState } from "react";
+import { AlertProvider } from "./Components/context/AlertContext";
+
+
+
 
 
 function App() {
+
+  // const [alert, setAlert] = useState(null);
+
+  // const showAlert = (message, type) => {
+  //   setAlert({
+  //     msg: message,
+  //     type: type
+  //   })
+  //   setTimeout(() => {
+  //     setAlert(null)
+  //   }, 1500)
+  // }
+
+
+
   return (
     <>
-     <AuthState>
-      <TaskState>
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Todo />} />
+    <AlertProvider>
+      <AuthState>
+        <TaskState>
+          <BrowserRouter>
+            <Navbar />
+            <Alert />
+            <Routes>
+              <Route path="/" element={<Todo  />} />
 
-            <Route path="/login" element={<Login></Login>} />
-            <Route path="/signup" element={<Signup></Signup>} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </BrowserRouter>
-      </TaskState>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup  />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </BrowserRouter>
+        </TaskState>
       </AuthState>
-     
+      </AlertProvider>
+
     </>
   );
 }

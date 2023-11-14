@@ -2,41 +2,33 @@ import React, { useState, useContext } from "react";
 // import config from "./config/Config";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./context/Authentication/AuthContext";
+import  {useAlert} from "./context/AlertContext"
 
 export default function Signup() {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const { signup} = authContext;
+  const { showAlert } = useAlert(); // Add this line
   const [credentials, setCredentails] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const handleSubmit =  (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signup(credentials,navigate)
-    // const { name, email, password } = credentials;
-    // try {
-    //   const response = await fetch(`${config.authUrl}/createuser`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ name, email, password }),
-    //   });
+    // signup(credentials,navigate)
+    try {
+      // Call the signup function from AuthContext
+      await signup(credentials, navigate);
 
-    //   const json = await response.json();
-    //   if (response.status === 200) {
-    //     // The server responded with success
-    //     localStorage.setItem("token", json.authToken);
-    //     navigate("/login"); // Redirect to the login page
-    //   } else {
-    //     // The server did not respond with success
-    //     alert("Invalid credentials");
-    //   }
-    // } catch (error) {
-    //   console.error("An error occurred:", error);
-    // }
+      // On success
+      showAlert("Signup successful!", "success");
+    } catch (error) {
+      console.error("An error occurred during signup:", error);
+      // On error
+      showAlert("Signup failed. Please try again.", "danger");
+    }
+ 
   };
 
   const onChange = (e) => {

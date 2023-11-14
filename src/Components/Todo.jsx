@@ -1,17 +1,24 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import TaskContext from "./context/Tasks/TaskContext";
 
 function Todo() {
   const context = useContext(TaskContext);
+
   const { tasks, addTask, editTask, deleteTask, fetchAllTasks } = context;
   const [task, setTask] = useState("");
   const [editedTaskText, setEditedTaskText] = useState({ etask: " ", id: "" }); // To store the edited task text
 
   // Declare ref properly
   const ref = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchAllTasks();
+    if (localStorage.getItem("token")) {
+      fetchAllTasks();
+    } else {
+      navigate("/login");
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -20,7 +27,7 @@ function Todo() {
     addTask(task);
 
     // Clear the input field
-  document.querySelector('input[name="task"]').value = "";
+    document.querySelector('input[name="task"]').value = "";
 
     // Reset the task input fihandleEditTask eld after adding the task
     setTask("");
@@ -124,15 +131,14 @@ function Todo() {
       {/* ////////////////////////  modal end*/}
       <div className="container containers">
         <h1>Todo List</h1>
-       
+
         <div className="form_container">
-        {task.length > 0 && task.length < 5 && (
-              <p className="error-message message_alert text-white mt-2">
-                Task must be at least 5 characters long.
-              </p>
-            )}
+          {task.length > 0 && task.length < 5 && (
+            <p className="error-message message_alert text-white mt-2">
+              Task must be at least 5 characters long.
+            </p>
+          )}
           <form>
-         
             <input
               type="text"
               name="task"
@@ -141,13 +147,11 @@ function Todo() {
               minLength={5}
               required
             />
-           
+
             <button type="submit" id="btn_addBtn" onClick={handleClick}>
               Add Task
             </button>
-           
           </form>
-        
         </div>
         <ul>
           {tasks.length === 0 ? <h1>No Tasks to display!</h1> : null}

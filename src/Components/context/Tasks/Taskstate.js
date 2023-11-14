@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import TaskContext from "./TaskContext";
 import config from "../../config/Config";
+import { useAlert } from "../AlertContext";
 
 const TaskState = ({ children }) => {
   const intialTasks = [];
+  const {showAlert} = useAlert()
+ 
 
   const [tasks, setTasks] = useState(intialTasks);
   // Fetch all tasks
@@ -26,6 +29,7 @@ const TaskState = ({ children }) => {
       setTasks(data);
     } catch (error) {
       console.error("Error adding task:", error);
+      
     }
   };
 
@@ -69,8 +73,10 @@ const TaskState = ({ children }) => {
       // Update the state by filtering out the deleted task
       const updatedTasks = tasks.filter((task) => task._id !== id);
       setTasks(updatedTasks);
+      showAlert("Delete successfully" ,"success")
     } catch (error) {
       console.error("Error deleting task:", error);
+      showAlert("Delete failed. Please try again.", "danger");
     }
   };
 
@@ -98,8 +104,12 @@ const TaskState = ({ children }) => {
       );
 
       setTasks(updatedTasks);
+      showAlert("Edit successfully.", "success");
+      
+
     } catch (error) {
       console.error("Error updating task:", error);
+      showAlert("Edit failed. Please try again.", "danger");
     }
   };
 

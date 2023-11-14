@@ -23,9 +23,11 @@ export const AuthState = ({ children }) => {
                 // The server responded with success
                 localStorage.setItem("token", json.authToken);
                 navigate("/login"); // Redirect to the login page
+               
               } else {
                 // The server did not respond with success
-                alert("Invalid credentials");
+                alert("Invalid credentials", "danger");
+
               }
         } catch (error) {
             console.error("An error occurred:", error);
@@ -49,8 +51,10 @@ export const AuthState = ({ children }) => {
             if (data.success) {
                 localStorage.setItem('token', data.authToken);
                 navigate('/'); // Redirect to the home page
+             
             } else {
-                alert("Invalid credentials");
+                alert("Invalid credentials", "danger");
+
             }
         } catch (error) {
             console.error("An error occurred:", error);
