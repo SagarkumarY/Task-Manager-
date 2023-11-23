@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import TaskContext from "./context/Tasks/TaskContext";
+import { useAlert } from "./context/AlertContext";
 
 function Todo() {
   const context = useContext(TaskContext);
+  const { showAlert } = useAlert(); // Add this line
 
   const { tasks, addTask, editTask, deleteTask, fetchAllTasks } = context;
   const [task, setTask] = useState("");
@@ -25,6 +27,7 @@ function Todo() {
   const handleClick = (event) => {
     event.preventDefault();
     addTask(task);
+    showAlert("Succesfully added new Task","success")
 
     // Clear the input field
     document.querySelector('input[name="task"]').value = "";

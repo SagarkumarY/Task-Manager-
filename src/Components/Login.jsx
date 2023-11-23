@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./context/Authentication/AuthContext";
-import  {useAlert} from "./context/AlertContext"
+import { useAlert } from "./context/AlertContext";
 function Login() {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
@@ -10,12 +10,12 @@ function Login() {
   const [credentials, setCredentails] = useState({ email: "", password: "" });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      login(credentials, navigate);
-      showAlert("Login successfully", "success")
-    } catch (error) {
-      showAlert("Login failed. Please try again.", "danger");
-    }
+    login(credentials, navigate);
+    // try {
+    //   showAlert("Login successfully", "success");
+    // } catch (error) {
+    //   showAlert("Login failed. Please try again.", "danger");
+    // }
   };
   const onChange = (e) => {
     setCredentails({ ...credentials, [e.target.name]: e.target.value });
@@ -28,20 +28,12 @@ function Login() {
         <div className="form-group">
           <label htmlFor="email">Email address</label>
           <input
-            // value={credentials.email}
-            // type="email"
-            // name="email"
-            // onChange={onChange}
-            // className="form-control"
-            // id="exampleInputEmail1"
-            // aria-describedby="emailHelp"
-            // placeholder="Enter email"
             type="email"
             value={credentials.email}
             onChange={onChange}
             name="email"
             className="form-control"
-            id="exampleInputEmail1"
+            id="email"
             aria-describedby="emailHelp"
             placeholder="Enter email"
             autoComplete="username" // Add this line

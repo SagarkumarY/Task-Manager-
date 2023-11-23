@@ -20,20 +20,6 @@ import { AlertProvider } from "./Components/context/AlertContext";
 
 function App() {
 
-  // const [alert, setAlert] = useState(null);
-
-  // const showAlert = (message, type) => {
-  //   setAlert({
-  //     msg: message,
-  //     type: type
-  //   })
-  //   setTimeout(() => {
-  //     setAlert(null)
-  //   }, 1500)
-  // }
-
-
-
   return (
     <>
     <AlertProvider>
@@ -43,11 +29,11 @@ function App() {
             <Navbar />
             <Alert />
             <Routes>
-              <Route path="/" element={<Todo  />} />
+              <Route path="/" element={<Todo/>} />
 
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup  />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/signup" element={<Signup />}/>
+              <Route path="/about" element={<About/>}/>
             </Routes>
           </BrowserRouter>
         </TaskState>

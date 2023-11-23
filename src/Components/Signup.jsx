@@ -5,7 +5,7 @@ import AuthContext from "./context/Authentication/AuthContext";
 import  {useAlert} from "./context/AlertContext"
 
 export default function Signup() {
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   const authContext = useContext(AuthContext);
   const { signup} = authContext;
   const { showAlert } = useAlert(); // Add this line
@@ -19,7 +19,7 @@ export default function Signup() {
     // signup(credentials,navigate)
     try {
       // Call the signup function from AuthContext
-      await signup(credentials, navigate);
+      await signup(credentials, navigation);
 
       // On success
       showAlert("Signup successful!", "success");
@@ -66,7 +66,7 @@ export default function Signup() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             className="form-control"
