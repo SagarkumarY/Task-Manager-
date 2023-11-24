@@ -29,12 +29,13 @@ export const AuthState = ({ children }) => {
 
             } else {
                 // The server did not respond with success
-                console.log("Invalid credentials", "danger");
+                console.log("Signup failed");
                 showAlert(" Invalid credentials. Please try again.", "danger");
 
             }
         } catch (error) {
             console.error("An error occurred:", error);
+            showAlert("An error occurred. Please try again later.", "danger")
         }
     };
 
